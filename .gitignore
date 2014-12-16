@@ -1,0 +1,19 @@
+# copied from https://stackoverflow.com/questions/2586097/what-should-be-in-gitignore-file-for-a-netbeans-java-project
+
+# NetBeans specific #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+

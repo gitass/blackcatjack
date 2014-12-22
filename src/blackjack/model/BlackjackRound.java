@@ -38,6 +38,11 @@ public class BlackjackRound {
 
     // Hit and return `_won`.
     public Boolean hit() {
+        //this stops the player from commiting suicide
+        if(_playerHand.value()==21){
+            _won = true;
+            return _won;
+        }
         Card card = _deckIterator.next();
         _playerHand.addCard(card);
         if (_playerHand.isBusted()) {

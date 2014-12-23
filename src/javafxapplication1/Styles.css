@@ -1,15 +1,31 @@
 @CHARSET "ISO-8859-1";
 
 .hit_button {
-    -fx-font-family:"Arial";
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#9EA7E5, #61a2b1);
+    -fx-font: bold 18pt "Arial";
+    /*-fx-background-color: linear-gradient(#9EA7E5, #61a2b1);*/
+    -fx-background-color:#ff8080;
     -fx-text-fill: #383640;
-    -fx-graphic: url();
 }
 
 .hit_button:hover {
-    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+   /*  -fx-background:url("small_paw.gif") no-repeat;*/
+   /*-fx-background-color: linear-gradient(#2A5058, #61a2b1);*/
     -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow( one-pass-box , white , 8 , 0.0 , 8 , 0 );
+}
+
+.hit_button:focused {
+    /*-fx-background-color: linear-gradient(#ff7f50, #990000);*/
+    -fx-text-fill: #ffffff;
+}
+.stand_button {
+    -fx-font-size: 15px;
+    -fx-font: italic 20pt "Arial";
+    -fx-background-color:linear-gradient(#9EA7E5, #61a2b1);
+}
+
+.stand_button:hover {
+   -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+   -fx-effect: dropshadow( one-pass-box , white , 8 , 0.0 , 8 , 0 );
+   -fx-text-fill: #ffffff;
 }

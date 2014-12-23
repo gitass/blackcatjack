@@ -11,7 +11,7 @@
    /*  -fx-background:url("small_paw.gif") no-repeat;*/
    /*-fx-background-color: linear-gradient(#2A5058, #61a2b1);*/
     -fx-text-fill: #ffffff;
-    -fx-effect: dropshadow( one-pass-box , white , 8 , 0.0 , 8 , 0 );
+    -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
 }
 
 .hit_button:focused {
@@ -26,6 +26,10 @@
 
 .stand_button:hover {
    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
-   -fx-effect: dropshadow( one-pass-box , white , 8 , 0.0 , 8 , 0 );
+   -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
    -fx-text-fill: #ffffff;
+}
+
+.root {
+    -fx-background-image: url("background_fix.png");
 }

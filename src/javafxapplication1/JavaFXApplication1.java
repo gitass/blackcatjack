@@ -25,6 +25,7 @@ public class JavaFXApplication1 extends Application {
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        scene.getStylesheets().add(getClass().getResource("Styles.css").toExternalForm());
         stage.setResizable(false);
         stage.show();
         

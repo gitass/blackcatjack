@@ -23,6 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -33,6 +35,7 @@ import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -97,6 +100,12 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
+
+        hit.getStyleClass().add("hit_button");
+        Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
+        hit.setGraphic(new ImageView(paw));
+
+        stand.getStyleClass().add("stand_button");
 
         newRound();
     }

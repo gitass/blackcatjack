@@ -176,7 +176,7 @@ public class FXMLDocumentController implements Initializable {
     private void newRound() {
         
         BlackjackRound round = _blackjackModel.newRound();
-        
+            
         textDealer.clear();
         textPlayer.clear();
         score.setText(Integer.toString(_blackjackModel.totalScore()));
@@ -190,6 +190,9 @@ public class FXMLDocumentController implements Initializable {
         
         textPlayer.setText(Card.cardsToString(round.playerHand().visibleCards()));
         textDealer.setText(Card.cardsToString(round.dealerHand().visibleCards()));
+        if (round.playerHand().value() == 21) {
+           endRound();
+        }
     }
     
     // 

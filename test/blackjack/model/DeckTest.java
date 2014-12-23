@@ -58,7 +58,7 @@ public class DeckTest {
                 }
             }
         }
-        System.out.println(" - the amount of shaffled cards is " + shuffleTester);
+        System.out.println(" - the amount of shuffled cards is " + shuffleTester);
         assert(shuffleTester>=17); //17 is about one third of a standard 52 card deck
 
     }

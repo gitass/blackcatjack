@@ -22,7 +22,9 @@ public class Hand {
     }
 
     public Hand(PlayerKind p) {
-        this(p, new ArrayList<>());
+        //this(p, new ArrayList<>());
+        _playerKind = p;
+        this._cards = new ArrayList<Card>();
     }
     
     public ArrayList<Card> visibleCards() {

@@ -62,7 +62,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
     }
-    
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize your logic here: all @FXML variables will have been injected
@@ -104,12 +105,15 @@ public class FXMLDocumentController implements Initializable {
         hit.getStyleClass().add("hit_button");
         Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
         hit.setGraphic(new ImageView(paw));
-
         stand.getStyleClass().add("stand_button");
 
         newRound();
     }
-    
+
+    /**
+     * The action preformed when the "Hit" button is pressed
+     * @param event
+     */
     @FXML
     private void hitButtonAction(ActionEvent event) {
         BlackjackRound round = _blackjackModel.currentRound();
@@ -125,6 +129,11 @@ public class FXMLDocumentController implements Initializable {
         
         System.out.println("end hit" + playerHand.value());
     }
+
+    /**
+     * The action preformed when the "Stand" button is pressed
+     * @param event
+     */
     @FXML
     private void standButtonAction(ActionEvent event) {
         BlackjackRound round = _blackjackModel.currentRound();
@@ -144,7 +153,7 @@ public class FXMLDocumentController implements Initializable {
     }
     @FXML
     /**
-     * for the QA
+     * for the QA- draws a specific card from the deck
      * TODO: the thing.
      * (make this actually work)
      */
@@ -167,7 +176,11 @@ public class FXMLDocumentController implements Initializable {
         dialogStage.show();
 
     }
-    
+
+    /**
+     * The action preformed when the "New Game" button is pressed: starts a new game
+     * @param event
+     */
     @FXML
     private void newGameButtonAction(ActionEvent event) {
         newRound();
@@ -202,13 +215,14 @@ public class FXMLDocumentController implements Initializable {
         Hand dealerHand = _blackjackModel.currentRound().dealerHand();
         textDealer.setText(Card.cardsToString(dealerHand.allCards()));
         scoreRound.setText("This Round: " + Integer.toString(_blackjackModel.currentRound().score()));
-        
+        score.setText(Integer.toString(_blackjackModel.endRound()));
         BlackjackRound round = _blackjackModel.currentRound();
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
         
         // Figure out some message for the user to explain what happend.
         Boolean won = _blackjackModel.currentRound().isWon();
+
         String message;
         
         if (won == null) {

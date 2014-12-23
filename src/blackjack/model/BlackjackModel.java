@@ -21,16 +21,20 @@ public class BlackjackModel {
     }
     
     public BlackjackRound newRound() {
-        if (!_rounds.isEmpty()) {
-            // if even round multiply by 3, else by 2.
-            int mult = (_rounds.size() % 2 == 0 ? 3 : 2);
-            _totalScore += mult * currentRound().score();
-        }
         // shuffle deck and construct new round.
         _deck.shuffle();
         BlackjackRound round = new BlackjackRound(_deck.iterator());
         _rounds.add(round);
         return round;
+    }
+
+    public int endRound() {
+        if (!_rounds.isEmpty()) {
+            // if even round multiply by 3, else by 2.
+            int mult = (_rounds.size() % 2 == 0 ? 3 : 2);
+            _totalScore += mult * currentRound().score();
+        }
+        return _totalScore;
     }
     
     public int totalScore() {

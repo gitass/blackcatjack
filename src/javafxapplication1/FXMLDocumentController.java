@@ -11,6 +11,10 @@ import blackjack.model.Card;
 import blackjack.model.Hand;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -18,11 +22,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -31,19 +37,26 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.Mnemonic;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 /**
  *
  * @author Liron
  */
+@SuppressWarnings("ALL")
 public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox<String> comboSuit = new ComboBox<>(); 
     @FXML private ComboBox<String> comboNumber = new ComboBox<>();
@@ -123,7 +136,10 @@ public class FXMLDocumentController implements Initializable {
         // 666
         Hand playerHand = round.playerHand();
         labelPlayer.setText(Integer.toString(round.playerHand().value()));
+
         if (playerHand.value() >= 21) {
+            System.out.println(Card.cardsToString(round.dealerHand().allCards()));
+            //textDealer.setText(Card.cardsToString(round.dealerHand().allCards()));
             endRound();
         }
         
@@ -139,16 +155,9 @@ public class FXMLDocumentController implements Initializable {
         BlackjackRound round = _blackjackModel.currentRound();
         round.stand();
         Hand dealerHand = round.dealerHand();
-        
         textDealer.setText(Card.cardsToString(dealerHand.visibleCards()));
-        //textDealer.appendText("\ntotal: " + round.dealerHand().value() + "\n");
-        
         labelDealer.setText(Integer.toString(round.playerHand().value()));
-        /*
-        hit.setDisable(true);
-        stand.setDisable(true);
-        */
-        
+
         endRound();
     }
     @FXML
@@ -158,11 +167,9 @@ public class FXMLDocumentController implements Initializable {
      * (make this actually work)
      */
     private void drawCardButtonAction(ActionEvent event) {
-        //TODO insert draw card method
         //System.out.println("Insert draw card method here");
         BlackjackRound round = _blackjackModel.newRound();
-        
-        
+
         //if a card is already used:
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -174,7 +181,6 @@ public class FXMLDocumentController implements Initializable {
                         .padding(new Insets(5))
                         .build()));
         dialogStage.show();
-
     }
 
     /**
@@ -189,7 +195,6 @@ public class FXMLDocumentController implements Initializable {
     private void newRound() {
         
         BlackjackRound round = _blackjackModel.newRound();
-            
         textDealer.clear();
         textPlayer.clear();
         score.setText(Integer.toString(_blackjackModel.totalScore()));
@@ -224,39 +229,54 @@ public class FXMLDocumentController implements Initializable {
         Boolean won = _blackjackModel.currentRound().isWon();
 
         String message;
-        
+        Image result;
         if (won == null) {
             // TODO: raise an exception or something
             System.err.println("WHAT THE FUCK DID I DO WRONG");
             return;
         }
         else if (won) {
+            result = new Image(getClass().getResourceAsStream("grumpy-cat-ariel.jpg"));
             message = "You Won!";
         }
         else {
+            result = new Image(getClass().getResourceAsStream("catasstrophy.jpg"));
             message = "You lost";
         }
         
         // Tell the player whether it lost or not.
-        Stage dialogStage = new Stage();
+        Stage dialogStage = new Stage(StageStyle.TRANSPARENT);
+        Group rootGroup = new Group();
+        Scene scene = new Scene(rootGroup, 200, 200, Color.TRANSPARENT);
+        dialogStage.setScene(scene);
+        dialogStage.centerOnScreen();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setScene(
-                new Scene(VBoxBuilder.create()
-                        .children(new Text(message))
-                        .alignment(Pos.CENTER)
-                        .padding(new Insets(5))
-                        .build()));
-        
+
+        Circle dragger = new Circle(100, 100, 100);
+
+        dragger.setFill(new ImagePattern(result, 0, 0, 1, 1, true));
+
+        Text text = new Text(message); //20, 110,
+        text.setFill(Color.WHITE);
+        //text.setEffect(new Lighting());
+        text.setBoundsType(TextBoundsType.VISUAL);
+        text.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, 30));
+
+        // USE A LAYOUT VBOX FOR EASIER POSITIONING OF THE VISUAL NODES ON SCENE
+        VBox vBox = new VBox();
+        vBox.setSpacing(10);
+        vBox.setPadding(new Insets(90, 60, 60, 40));
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().add(text);
+        rootGroup.getChildren().addAll(dragger, vBox);
         dialogStage.show();
-        
+
         // Handle button Disable-ness-ity.
         hit.setDisable(true);
         stand.setDisable(true);
         newGame.setDisable(false);
-        
-    
         dialogStage.setAlwaysOnTop(true);
-        
+
         // Either a mouse click on the dialog or pressing any key closes it
         dialogStage.getScene().setOnMouseClicked(new EventHandler<MouseEvent> () {
             @Override
@@ -270,5 +290,11 @@ public class FXMLDocumentController implements Initializable {
                 dialogStage.close();
                 //newGame.fire();
         });
+
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(1000),
+                ae -> dialogStage.close()));
+        timeline.play();
+
     }
 }

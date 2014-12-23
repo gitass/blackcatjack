@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.hit_button {
+    -fx-font-family:"Arial";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#9EA7E5, #61a2b1);
+    -fx-text-fill: #383640;
+    -fx-graphic: url();
+}
+
+.hit_button:hover {
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+    -fx-text-fill: #ffffff;
+}

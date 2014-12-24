@@ -1,5 +1,39 @@
 @CHARSET "ISO-8859-1";
 
+.root {
+    -fx-background-image: url("background_fix.png");
+}
+
+.playerTag {
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , pink , 5 , 0.5 , 1 , 1 );
+    -fx-font: bold 25pt "Arial";
+}
+
+
+.newRound_button {
+    -fx-font: bold 15pt "Arial";/*
+    -fx-background-color: linear-gradient(#82ff81, #28872c);
+    -fx-text-fill: #383640;*/
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -10%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+.newRound_button:hover {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#28872c, #82ff81);
+    -fx-font: bold 15pt "Arial";
+    -fx-background-color:
+        radial-gradient(center 50% -15%, radius 200%, #80c800 45%, #b8ee36 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
+}
+
 .hit_button {
     -fx-font: bold 18pt "Arial";
     /*-fx-background-color: linear-gradient(#9EA7E5, #61a2b1);*/
@@ -28,12 +62,4 @@
    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
    -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
    -fx-text-fill: #ffffff;
-}
-
-.root {
-    -fx-background-image: url("background_fix.png");
-    /*-fx-background-repeat: stretch;
-    -fx-background_fix: fit;
-*//*    -fx-background-size: 900 506;*//*
-    -fx-background-position: center center;*/
 }

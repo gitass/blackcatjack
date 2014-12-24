@@ -63,11 +63,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Button hit = new Button();
     @FXML private Button stand = new Button();
     @FXML private Button newGame = new Button();
-    @FXML private Label labelPlayer = new Label();
-    @FXML private Label labelDealer = new Label();
+    @FXML private Label labelPlayer = new Label(); //the player's score
+    @FXML private Label labelDealer = new Label(); //the dealer's score
     @FXML private TextArea scoreRound = new TextArea();
     @FXML private HBox playerHBox = new HBox();
     @FXML private HBox dealerHBox = new HBox();
+    @FXML private Label playerTag = new Label();
+    @FXML private Label dealerTag = new Label();
     
     private BlackjackModel _blackjackModel;
 
@@ -103,7 +105,11 @@ public class FXMLDocumentController implements Initializable {
         Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
         hit.setGraphic(new ImageView(paw));
         stand.getStyleClass().add("stand_button");
-
+        newGame.getStyleClass().add("newRound_button");
+        playerTag.getStyleClass().add("playerTag");
+        dealerTag.getStyleClass().add("playerTag");
+        playerHBox.setSpacing(-50);
+        dealerHBox.setSpacing(-50);
         newRound();
     }
 
@@ -245,6 +251,7 @@ public class FXMLDocumentController implements Initializable {
             drawNewCard(playerHBox,suit,number);
         }
         textDealer.setText(Card.cardsToString(round.dealerHand().visibleCards()));
+        dealerHBox.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("Cards/cover.png"))));
         for (int i = 0; i <round.dealerHand().visibleCards().size(); i++) {
             int number = round.dealerHand().visibleCards().get(i).number();
             Suit suit = round.dealerHand().visibleCards().get(i).suit();

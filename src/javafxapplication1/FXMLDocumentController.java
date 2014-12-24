@@ -36,6 +36,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -71,7 +73,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Label playerTag = new Label();
     @FXML private Label dealerTag = new Label();
     @FXML private Label gameScoreLabel = new Label();
-    
+    @FXML private Button Meow = new Button();
+
     private BlackjackModel _blackjackModel;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -114,6 +117,7 @@ public class FXMLDocumentController implements Initializable {
         score.getStyleClass().add("gameScoreDisplay");
         scoreRound.getStyleClass().add("roundScoreDisplay");
         gameScoreLabel.getStyleClass().add("gameScoreLabel");
+        Meow.getStyleClass().add("meowButton");
         playerHBox.setSpacing(-50);
         dealerHBox.setSpacing(-50);
         newRound();
@@ -155,7 +159,18 @@ public class FXMLDocumentController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    @FXML
+    private void meowButtonAction (ActionEvent event) {
+            try{
+                Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
+                if (meowSound != null){
+                    MediaPlayer mp = new MediaPlayer(meowSound);
+                    mp.play();
+                }
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+    }
     /**
      * The action preformed when the "Hit" button is pressed
      * @param event

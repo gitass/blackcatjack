@@ -84,7 +84,7 @@
             <TextArea id="scoreRound" fx:id="scoreRound" editable="false" prefHeight="68.0" prefWidth="189.0" />
          </children>
       </VBox>
-      <Button id="Meow" fx:id="Meow" layoutX="868.0" layoutY="315.0" mnemonicParsing="false" text="Meow" />
+      <Button id="Meow" fx:id="Meow" layoutX="773.0" layoutY="243.0" mnemonicParsing="false" onAction="#meowButtonAction" text="Meow" />
       <Label id="gameScoreLabel" fx:id="gameScoreLabel" alignment="CENTER" layoutX="674.0" layoutY="33.0" prefHeight="40.0" prefWidth="244.0" text="Score" textAlignment="CENTER" />
     </children>
 </AnchorPane>

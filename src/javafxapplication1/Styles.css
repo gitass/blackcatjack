@@ -10,6 +10,17 @@
     -fx-effect: dropshadow( one-pass-box , green , 5 , 0.5 , 3 , 3 );
 }
 
+.meowButton {
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+.meowButton:hover {
+    -fx-background-color: linear-gradient(#be1d00, #ff5400);
+}
+
+
 .text-area {
     -fx-background-color: rgba(53,89,119,0.4);
 }

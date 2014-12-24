@@ -20,7 +20,6 @@
     -fx-background-color: linear-gradient(#be1d00, #ff5400);
 }
 
-
 .text-area {
     -fx-background-color: rgba(53,89,119,0.4);
 }
@@ -35,10 +34,6 @@
 }
 
 .gameScoreDisplay {
-    /*-fx-background-color: rgba(53,89,119,0.4);
-    -fx-background-color: transparent;*/
-    /*-fx-text-alignment: CENTER-CENTER;
-    -fx-alignment: CENTER-CENTER;*/
     -fx-text-fill: #00ff00;
     -fx-font: bold 25pt "Consolas";
 }
@@ -72,15 +67,10 @@
 }
 
 .newRound_button {
-    -fx-font: bold 15pt "Arial";/*
-    -fx-background-color: linear-gradient(#82ff81, #28872c);
-    -fx-text-fill: #383640;*/
+    -fx-font: bold 15pt "Arial";
     -fx-background-color:
         linear-gradient(#f0ff35, #a9ff00),
         radial-gradient(center 50% -10%, radius 200%, #b8ee36 45%, #80c800 50%);
-    -fx-background-radius: 6, 5;
-    -fx-background-insets: 0, 1;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;
 }
 .newRound_button:hover {
@@ -89,27 +79,21 @@
     -fx-font: bold 15pt "Arial";
     -fx-background-color:
         radial-gradient(center 50% -15%, radius 200%, #80c800 45%, #b8ee36 50%);
-    -fx-background-radius: 6, 5;
-    -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
 }
 
 .hit_button {
     -fx-font: bold 18pt "Arial";
-    /*-fx-background-color: linear-gradient(#9EA7E5, #61a2b1);*/
     -fx-background-color:#ff8080;
     -fx-text-fill: #383640;
 }
 
 .hit_button:hover {
-   /*  -fx-background:url("small_paw.gif") no-repeat;*/
-   /*-fx-background-color: linear-gradient(#2A5058, #61a2b1);*/
     -fx-text-fill: #ffffff;
     -fx-effect: dropshadow( one-pass-box , white , 5 , 0.0 , 5 , 5 );
 }
 
 .hit_button:focused {
-    /*-fx-background-color: linear-gradient(#ff7f50, #990000);*/
     -fx-text-fill: #ffffff;
 }
 .stand_button {

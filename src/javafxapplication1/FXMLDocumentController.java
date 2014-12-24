@@ -105,6 +105,7 @@ public class FXMLDocumentController implements Initializable {
         _blackjackModel = new BlackjackModel();
         score.setWrapText(true);
 
+        //Set styles to items- labels, buttons and Hboxes
         hit.getStyleClass().add("hit_button");
         Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
         hit.setGraphic(new ImageView(paw));
@@ -120,6 +121,8 @@ public class FXMLDocumentController implements Initializable {
         Meow.getStyleClass().add("meowButton");
         playerHBox.setSpacing(-50);
         dealerHBox.setSpacing(-50);
+
+        //Starts the game
         newRound();
     }
 
@@ -160,6 +163,10 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     @FXML
+    /**
+     * Make a meow sound when pressing the "Meow" button.
+     * Surprised?
+     */
     private void meowButtonAction (ActionEvent event) {
             try{
                 Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
@@ -219,8 +226,8 @@ public class FXMLDocumentController implements Initializable {
     }
     @FXML
     /**
+     * UNUSED - IRRELEVANT
      * for the QA- draws a specific card from the deck
-     * TODO: the thing.
      * (make this actually work)
      */
     private void drawCardButtonAction(ActionEvent event) {
@@ -248,9 +255,11 @@ public class FXMLDocumentController implements Initializable {
     private void newGameButtonAction(ActionEvent event) {
         newRound();
     }
-    
+
+    /**
+     * Starts a new round by dealing new cards and updating the relevant fields
+     */
     private void newRound() {
-        
         BlackjackRound round = _blackjackModel.newRound();
         textDealer.clear();
         textPlayer.clear();
@@ -282,8 +291,10 @@ public class FXMLDocumentController implements Initializable {
            endRound();
         }
     }
-    
-    // 
+
+    /**
+     * Ends the round- displays "you win!"/"you lost" messege and updates the game score
+     */
     private void endRound() {
         
         // Reveal the dealer's hidden card.
@@ -301,13 +312,11 @@ public class FXMLDocumentController implements Initializable {
             drawNewCard(dealerHBox,suit,number);
         }
 
-        // Figure out some message for the user to explain what happend.
         Boolean won = _blackjackModel.currentRound().isWon();
 
         String message;
         Image result;
         if (won == null) {
-            // TODO: raise an exception or something
             System.err.println("WHAT THE FUCK DID I DO WRONG");
             return;
         }

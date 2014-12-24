@@ -33,7 +33,7 @@
             <Label id="labelDealer" fx:id="labelDealer" alignment="CENTER_RIGHT" layoutY="-6.0" prefHeight="40.0" prefWidth="84.0" />
             <HBox id="dealerHBox" fx:id="dealerHBox" layoutY="41.0" prefHeight="209.0" prefWidth="682.0" />
          </children></Pane>
-      <Pane layoutX="223.0" layoutY="299.0" prefHeight="267.0" prefWidth="702.0">
+      <Pane layoutX="223.0" layoutY="299.0" prefHeight="267.0" prefWidth="615.0">
          <children>
             <TextArea id="textPlayer" fx:id="textPlayer" editable="false" layoutX="532.0" layoutY="156.0" prefHeight="96.0" prefWidth="170.0" style="-fx-background-color: white;" visible="false" />
             <Label id="playerTag" fx:id="playerTag" layoutX="106.0" layoutY="204.0" prefHeight="55.0" prefWidth="253.0" text="Player">
@@ -42,7 +42,7 @@
                </font>
             </Label>
             <Label id="labelPlayer" fx:id="labelPlayer" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="203.0" prefHeight="40.0" prefWidth="84.0" />
-            <HBox id="playerHBox" fx:id="playerHBox" layoutY="29.0" prefHeight="209.0" prefWidth="688.0" />
+            <HBox id="playerHBox" fx:id="playerHBox" layoutY="29.0" prefHeight="209.0" prefWidth="609.0" />
          </children></Pane>
       <ComboBox id="comboNumber" fx:id="comboNumber" layoutX="543.0" layoutY="209.0" prefHeight="25.0" prefWidth="62.0" visible="false">
           <items>
@@ -76,11 +76,15 @@
       <Button layoutX="328.0" layoutY="209.0" mnemonicParsing="false" onAction="#drawCardButtonAction" prefHeight="25.0" prefWidth="109.0" text="Draw Card" visible="false" />
       <Group />
       <Button id="newGame" fx:id="newGame" layoutX="18.0" layoutY="307.0" mnemonicParsing="false" onAction="#newGameButtonAction" prefHeight="40.0" prefWidth="189.0" text="New Round" />
-      <TextArea id="score" fx:id="score" editable="false" layoutX="749.0" layoutY="81.0" prefHeight="56.0" prefWidth="161.0">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </TextArea>
-      <TextArea id="scoreRound" fx:id="scoreRound" editable="false" layoutX="749.0" layoutY="137.0" prefHeight="56.0" prefWidth="161.0" />
+      <VBox layoutX="689.0" layoutY="85.0" prefHeight="130.0" prefWidth="216.0">
+         <children>
+            <TextArea id="score" fx:id="score" editable="false" prefHeight="79.0" prefWidth="189.0">
+            </TextArea>
+            <Label id="gameScoreDisplay" fx:id="gameScoreDisplay" prefHeight="17.0" prefWidth="215.0" />
+            <TextArea id="scoreRound" fx:id="scoreRound" editable="false" prefHeight="68.0" prefWidth="189.0" />
+         </children>
+      </VBox>
+      <Button id="Meow" fx:id="Meow" layoutX="868.0" layoutY="315.0" mnemonicParsing="false" text="Meow" />
+      <Label id="gameScoreLabel" fx:id="gameScoreLabel" alignment="CENTER" layoutX="674.0" layoutY="33.0" prefHeight="40.0" prefWidth="244.0" text="Score" textAlignment="CENTER" />
     </children>
 </AnchorPane>

@@ -70,6 +70,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML private HBox dealerHBox = new HBox();
     @FXML private Label playerTag = new Label();
     @FXML private Label dealerTag = new Label();
+    @FXML private Label gameScoreLabel = new Label();
     
     private BlackjackModel _blackjackModel;
 
@@ -110,6 +111,9 @@ public class FXMLDocumentController implements Initializable {
         dealerTag.getStyleClass().add("playerTag");
         labelDealer.getStyleClass().add("scoreTag");
         labelPlayer.getStyleClass().add("scoreTag");
+        score.getStyleClass().add("gameScoreDisplay");
+        scoreRound.getStyleClass().add("roundScoreDisplay");
+        gameScoreLabel.getStyleClass().add("gameScoreLabel");
         playerHBox.setSpacing(-50);
         dealerHBox.setSpacing(-50);
         newRound();

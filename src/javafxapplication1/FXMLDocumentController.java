@@ -108,6 +108,8 @@ public class FXMLDocumentController implements Initializable {
         newGame.getStyleClass().add("newRound_button");
         playerTag.getStyleClass().add("playerTag");
         dealerTag.getStyleClass().add("playerTag");
+        labelDealer.getStyleClass().add("scoreTag");
+        labelPlayer.getStyleClass().add("scoreTag");
         playerHBox.setSpacing(-50);
         dealerHBox.setSpacing(-50);
         newRound();
@@ -334,7 +336,7 @@ public class FXMLDocumentController implements Initializable {
 
 
         Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(1000),
+                Duration.millis(1500),
                 ae -> dialogStage.close()));
         timeline.play();
 

@@ -5,13 +5,10 @@
  */
 package javafxapplication1;
 
-import blackjack.model.BlackjackModel;
-import blackjack.model.BlackjackRound;
-import blackjack.model.Card;
-import blackjack.model.Hand;
+import blackjack.model.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,13 +18,11 @@ import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +32,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.Mnemonic;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.*;
@@ -69,6 +66,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Label labelPlayer = new Label();
     @FXML private Label labelDealer = new Label();
     @FXML private TextArea scoreRound = new TextArea();
+    @FXML private HBox playerHBox = new HBox();
+    @FXML private HBox dealerHBox = new HBox();
     
     private BlackjackModel _blackjackModel;
 
@@ -76,44 +75,29 @@ public class FXMLDocumentController implements Initializable {
     void initialize() {
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialize your logic here: all @FXML variables will have been injected
         assert comboSuit != null : "fx:id=\"comboSuit\" was not injected";
         comboSuit.getItems().clear();
         comboSuit.getItems().addAll("Heart","Diamond","Spade","Club");
-        
         assert comboNumber != null : "fx:id=\"comboNumber\" was not injected";
         comboNumber.getItems().clear();
         comboNumber.getItems().addAll("1","2","3","4","5","6","7","8","9","10","11","12","13");
-        
         assert textDealer != null : "fx:id=\"textDealer\" was not injected";
         textDealer.clear();
-        
         assert textPlayer != null : "fx:id=\"textPlayer\" was not injected";
         textPlayer.clear();
-        
         assert score != null : "fx:id=\"score\" was not injected";
         score.clear();
-    
         assert hit != null : "fx:id=\"hit\" was not injected";
         assert stand != null : "fx:id=\"stand\" was not injected";
         assert labelPlayer != null : "fx:id=\"labelPlayer\" was not injected";
         assert labelDealer != null : "fx:id=\"labelDealer\" was not injected";
-
+        assert dealerHBox != null : "fx:id=\"dealerHBox\" was not injected";
+        assert playerHBox != null : "fx:id=\"playerHBox\" was not injected";
         _blackjackModel = new BlackjackModel();
         score.setWrapText(true);
-        /*I tried to install accelerators... and it failed miserably
-        try {
-        hit.getScene().
-                getAccelerators().
-                put(new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN), (Runnable) () -> {
-            hit.fire();
-        });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
 
         hit.getStyleClass().add("hit_button");
         Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
@@ -124,6 +108,43 @@ public class FXMLDocumentController implements Initializable {
     }
 
     /**
+     * Adds a new card to the pane
+     * @param pane
+     * @param suit
+     * @param number
+     */
+    private void drawNewCard(HBox box, Suit suit, int number) {
+        BlackjackRound round = _blackjackModel.currentRound();
+        String imageFile;
+        Image newCard;
+
+        imageFile = "Cards/";
+        switch (suit) {
+            case SPADES: imageFile += "Spades";
+                break;
+            case HEARTS: imageFile+= "Hearts";
+                break;
+            case DIAMONDS: imageFile+= "Diamonds";
+                break;
+            case CLUBS: imageFile+= "Clubs";
+                break;
+        }
+        imageFile += Integer.toString(number)+".png";
+        /*if (number < 11) {
+            imageFile += ".png";
+        }
+        else {
+            imageFile += ".jpg";
+        }*/
+        try {
+            newCard = new Image(getClass().getResourceAsStream(imageFile));
+            box.getChildren().add(new ImageView(newCard));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * The action preformed when the "Hit" button is pressed
      * @param event
      */
@@ -131,9 +152,18 @@ public class FXMLDocumentController implements Initializable {
     private void hitButtonAction(ActionEvent event) {
         BlackjackRound round = _blackjackModel.currentRound();
         Boolean b = round.hit();
-        textPlayer.setText(Card.cardsToString(round.playerHand().visibleCards()));
-        //textPlayer.appendText("\ntotal: " + round.playerHand().value() + "\n");
-        // 666
+        String imageFile;
+
+        Image newCard;
+        playerHBox.getChildren().clear();
+        for (int i = 0; i <round.playerHand().visibleCards().size(); i++) {
+            int number = round.playerHand().visibleCards().get(i).number();
+            Suit suit = round.playerHand().visibleCards().get(i).suit();
+            drawNewCard(playerHBox,suit,number);
+        }
+
+
+        textPlayer.setText(Card.cardsToString(round.playerHand().visibleCards())); //visibleCards: return ArrayList<Cars>
         Hand playerHand = round.playerHand();
         labelPlayer.setText(Integer.toString(round.playerHand().value()));
 
@@ -197,6 +227,8 @@ public class FXMLDocumentController implements Initializable {
         BlackjackRound round = _blackjackModel.newRound();
         textDealer.clear();
         textPlayer.clear();
+        playerHBox.getChildren().clear();
+        dealerHBox.getChildren().clear();
         score.setText(Integer.toString(_blackjackModel.totalScore()));
         scoreRound.setText("0");
         hit.setDisable(false);
@@ -207,7 +239,17 @@ public class FXMLDocumentController implements Initializable {
         labelPlayer.setText(Integer.toString(round.playerHand().value()));
         
         textPlayer.setText(Card.cardsToString(round.playerHand().visibleCards()));
+        for (int i = 0; i <round.playerHand().visibleCards().size(); i++) {
+            int number = round.playerHand().visibleCards().get(i).number();
+            Suit suit = round.playerHand().visibleCards().get(i).suit();
+            drawNewCard(playerHBox,suit,number);
+        }
         textDealer.setText(Card.cardsToString(round.dealerHand().visibleCards()));
+        for (int i = 0; i <round.dealerHand().visibleCards().size(); i++) {
+            int number = round.dealerHand().visibleCards().get(i).number();
+            Suit suit = round.dealerHand().visibleCards().get(i).suit();
+            drawNewCard(dealerHBox,suit,number);
+        }
         if (round.playerHand().value() == 21) {
            endRound();
         }
@@ -224,7 +266,13 @@ public class FXMLDocumentController implements Initializable {
         BlackjackRound round = _blackjackModel.currentRound();
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
-        
+        dealerHBox.getChildren().clear();
+        for (int i = 0; i <round.dealerHand().allCards().size(); i++) {
+            int number = round.dealerHand().allCards().get(i).number();
+            Suit suit = round.dealerHand().allCards().get(i).suit();
+            drawNewCard(dealerHBox,suit,number);
+        }
+
         // Figure out some message for the user to explain what happend.
         Boolean won = _blackjackModel.currentRound().isWon();
 
@@ -247,12 +295,12 @@ public class FXMLDocumentController implements Initializable {
         // Tell the player whether it lost or not.
         Stage dialogStage = new Stage(StageStyle.TRANSPARENT);
         Group rootGroup = new Group();
-        Scene scene = new Scene(rootGroup, 200, 200, Color.TRANSPARENT);
+        Scene scene = new Scene(rootGroup, 300, 300, Color.TRANSPARENT);
         dialogStage.setScene(scene);
         dialogStage.centerOnScreen();
         dialogStage.initModality(Modality.WINDOW_MODAL);
 
-        Circle dragger = new Circle(100, 100, 100);
+        Circle dragger = new Circle(150, 150, 150);
 
         dragger.setFill(new ImagePattern(result, 0, 0, 1, 1, true));
 
@@ -260,12 +308,12 @@ public class FXMLDocumentController implements Initializable {
         text.setFill(Color.WHITE);
         //text.setEffect(new Lighting());
         text.setBoundsType(TextBoundsType.VISUAL);
-        text.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, 30));
+        text.setFont(Font.font(Font.getDefault().getFamily(), FontWeight.BOLD, 50));
 
         // USE A LAYOUT VBOX FOR EASIER POSITIONING OF THE VISUAL NODES ON SCENE
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-        vBox.setPadding(new Insets(90, 60, 60, 40));
+        vBox.setPadding(new Insets(130, 60, 60, 44));
         vBox.setAlignment(Pos.CENTER);
         vBox.getChildren().add(text);
         rootGroup.getChildren().addAll(dragger, vBox);
@@ -277,19 +325,6 @@ public class FXMLDocumentController implements Initializable {
         newGame.setDisable(false);
         dialogStage.setAlwaysOnTop(true);
 
-        // Either a mouse click on the dialog or pressing any key closes it
-        dialogStage.getScene().setOnMouseClicked(new EventHandler<MouseEvent> () {
-            @Override
-            public void handle(MouseEvent event) {
-                dialogStage.close();
-                //newGame.fire();
-            }
-        });
-        
-        dialogStage.getScene().setOnKeyPressed((KeyEvent ke) -> {
-                dialogStage.close();
-                //newGame.fire();
-        });
 
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(1000),

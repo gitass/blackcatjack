@@ -55,7 +55,7 @@ import javafx.util.Duration;
  *
  * @author Liron
  */
-@SuppressWarnings("ALL")
+@SuppressWarnings("all")
 public class FXMLDocumentController implements Initializable {
     @FXML private ComboBox<String> comboSuit = new ComboBox<>(); 
     @FXML private ComboBox<String> comboNumber = new ComboBox<>();
@@ -65,8 +65,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML private Button hit = new Button();
     @FXML private Button stand = new Button();
     @FXML private Button newGame = new Button();
-    @FXML private Label labelPlayer = new Label(); //the player's score
-    @FXML private Label labelDealer = new Label(); //the dealer's score
+    @FXML private Label labelPlayer = new Label(); // the player's score
+    @FXML private Label labelDealer = new Label(); // the dealer's score
     @FXML private TextArea scoreRound = new TextArea();
     @FXML private HBox playerHBox = new HBox();
     @FXML private HBox dealerHBox = new HBox();
@@ -105,7 +105,7 @@ public class FXMLDocumentController implements Initializable {
         _blackjackModel = new BlackjackModel();
         score.setWrapText(true);
 
-        //Set styles to items- labels, buttons and Hboxes
+        // Set styles to items- labels, buttons and Hboxes
         hit.getStyleClass().add("hit_button");
         Image paw = new Image(getClass().getResourceAsStream("small_paw.gif"));
         hit.setGraphic(new ImageView(paw));
@@ -122,7 +122,7 @@ public class FXMLDocumentController implements Initializable {
         playerHBox.setSpacing(-50);
         dealerHBox.setSpacing(-50);
 
-        //Starts the game
+        // Starts the game
         newRound();
     }
 
@@ -133,7 +133,7 @@ public class FXMLDocumentController implements Initializable {
      * @param number
      */
     private void drawNewCard(HBox box, Suit suit, int number) {
-        BlackjackRound round = _blackjackModel.currentRound();
+        _blackjackModel.currentRound();
         String imageFile;
         Image newCard;
 
@@ -141,11 +141,11 @@ public class FXMLDocumentController implements Initializable {
         switch (suit) {
             case SPADES: imageFile += "Spades";
                 break;
-            case HEARTS: imageFile+= "Hearts";
+            case HEARTS: imageFile += "Hearts";
                 break;
-            case DIAMONDS: imageFile+= "Diamonds";
+            case DIAMONDS: imageFile += "Diamonds";
                 break;
-            case CLUBS: imageFile+= "Clubs";
+            case CLUBS: imageFile += "Clubs";
                 break;
         }
         imageFile += Integer.toString(number)+".png";
@@ -158,7 +158,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             newCard = new Image(getClass().getResourceAsStream(imageFile));
             box.getChildren().add(new ImageView(newCard));
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -168,18 +168,18 @@ public class FXMLDocumentController implements Initializable {
      * Surprised?
      */
     private void meowButtonAction (ActionEvent event) {
-            try{
-                Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
-                if (meowSound != null){
-                    MediaPlayer mp = new MediaPlayer(meowSound);
-                    mp.play();
-                }
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
+    	try {
+    		Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
+    		if (meowSound != null) {
+    			MediaPlayer mp = new MediaPlayer(meowSound);
+    			mp.play();
+    		}
+    	} catch(Exception ex){
+    		ex.printStackTrace();
+    	}
     }
     /**
-     * The action preformed when the "Hit" button is pressed
+     * The action performed when the "Hit" button is pressed
      * @param event
      */
     @FXML
@@ -190,10 +190,10 @@ public class FXMLDocumentController implements Initializable {
 
         Image newCard;
         playerHBox.getChildren().clear();
-        for (int i = 0; i <round.playerHand().visibleCards().size(); i++) {
+        for (int i = 0; i < round.playerHand().visibleCards().size(); i++) {
             int number = round.playerHand().visibleCards().get(i).number();
             Suit suit = round.playerHand().visibleCards().get(i).suit();
-            drawNewCard(playerHBox,suit,number);
+            drawNewCard(playerHBox, suit, number);
         }
 
 
@@ -211,7 +211,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     /**
-     * The action preformed when the "Stand" button is pressed
+     * The action performed when the "Stand" button is pressed
      * @param event
      */
     @FXML
@@ -232,18 +232,17 @@ public class FXMLDocumentController implements Initializable {
      */
     private void drawCardButtonAction(ActionEvent event) {
         //System.out.println("Insert draw card method here");
-        BlackjackRound round = _blackjackModel.newRound();
+        _blackjackModel.newRound();
 
-        //if a card is already used:
+        // If a card is already used:
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        Text text = new Text("Card already used: "+ comboSuit.getValue() +" "+ comboNumber.getValue());
-        dialogStage.setScene(
-                new Scene(VBoxBuilder.create()
-                        .children(text)
-                        .alignment(Pos.CENTER)
-                        .padding(new Insets(5))
-                        .build()));
+        Text text = new Text("Card already used: " + comboSuit.getValue() + " " + comboNumber.getValue());
+        VBox vBox = new VBox();
+        vBox.getChildren().add(text);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(5));
+        dialogStage.setScene(new Scene(vBox));
         dialogStage.show();
     }
 
@@ -275,17 +274,17 @@ public class FXMLDocumentController implements Initializable {
         labelPlayer.setText(Integer.toString(round.playerHand().value()));
         
         textPlayer.setText(Card.cardsToString(round.playerHand().visibleCards()));
-        for (int i = 0; i <round.playerHand().visibleCards().size(); i++) {
+        for (int i = 0; i < round.playerHand().visibleCards().size(); i++) {
             int number = round.playerHand().visibleCards().get(i).number();
             Suit suit = round.playerHand().visibleCards().get(i).suit();
-            drawNewCard(playerHBox,suit,number);
+            drawNewCard(playerHBox, suit, number);
         }
         textDealer.setText(Card.cardsToString(round.dealerHand().visibleCards()));
         dealerHBox.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("Cards/cover.png"))));
-        for (int i = 0; i <round.dealerHand().visibleCards().size(); i++) {
+        for (int i = 0; i < round.dealerHand().visibleCards().size(); i++) {
             int number = round.dealerHand().visibleCards().get(i).number();
             Suit suit = round.dealerHand().visibleCards().get(i).suit();
-            drawNewCard(dealerHBox,suit,number);
+            drawNewCard(dealerHBox, suit, number);
         }
         if (round.playerHand().value() == 21) {
            endRound();
@@ -306,10 +305,10 @@ public class FXMLDocumentController implements Initializable {
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
         labelDealer.setText(Integer.toString(round.dealerHand().value()));
         dealerHBox.getChildren().clear();
-        for (int i = 0; i <round.dealerHand().allCards().size(); i++) {
+        for (int i = 0; i < round.dealerHand().allCards().size(); i++) {
             int number = round.dealerHand().allCards().get(i).number();
             Suit suit = round.dealerHand().allCards().get(i).suit();
-            drawNewCard(dealerHBox,suit,number);
+            drawNewCard(dealerHBox, suit, number);
         }
 
         Boolean won = _blackjackModel.currentRound().isWon();

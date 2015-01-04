@@ -6,14 +6,12 @@
 package blackjack.model;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
 
 /**
  *
@@ -22,8 +20,8 @@ import org.junit.Ignore;
  */
 public class CardTest {
     
-    public static final int NUMBER=5;
-    public static final Suit SUIT=Suit.CLUBS;
+    public static final int NUMBER = 5;
+    public static final Suit SUIT = Suit.CLUBS;
     Card card;
     
     public CardTest() {
@@ -39,7 +37,7 @@ public class CardTest {
     
     @Before
     public void setUp() {
-        card= new Card(NUMBER,SUIT);
+        card = new Card(NUMBER, SUIT);
     }
     
     @After
@@ -85,7 +83,7 @@ public class CardTest {
     @Test
     public void testCardsToString() {
         System.out.println("cardsToString");
-        List<Card> cards=new ArrayList();
+        ArrayList<Card> cards = new ArrayList<>();
         cards.add(card);
         String expResult = "Card{5 of CLUBS}\n";
         String result = Card.cardsToString(cards);

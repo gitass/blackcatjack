@@ -1,7 +1,6 @@
 package blackjack.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Hand {
     private final PlayerKind _playerKind;

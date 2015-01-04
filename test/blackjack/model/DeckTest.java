@@ -5,7 +5,7 @@
  */
 package blackjack.model;
 
-import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 public class DeckTest {
     Deck d;
     Deck.DeckIterator iter;
+    
     public DeckTest() {
     }
     
@@ -46,20 +47,20 @@ public class DeckTest {
      */
     @Test
     public void testShuffledCards() {
-        int shuffleTester=0;
+        int shuffleTester = 0;
         Card card;
         System.out.print("shuffledCards");
         iter = d.iterator();
         for (int n = 1; n <= 13; n++) {
             for (Suit s : Suit.values()) {
-                card=iter.next();
-                if(card.number()!=n && card.suit()!=s){
+                card = iter.next();
+                if (card.number() != n && card.suit() != s){
                     ++shuffleTester;
                 }
             }
         }
         System.out.println(" - the amount of shuffled cards is " + shuffleTester);
-        assert(shuffleTester>=17); //17 is about one third of a standard 52 card deck
+        assert(shuffleTester >= 17); // 17 is about one third of a standard 52 card deck
 
     }
 
@@ -70,17 +71,16 @@ public class DeckTest {
     @Test
     public void testShuffle() {
         System.out.println("shuffle");
-        boolean T=true;
-        int i=0;
-        Card c1,c2;
+        boolean T = true;
+        Card c1, c2;
         Deck instance = new Deck();
         instance.shuffle();
-        Deck.DeckIterator nditer=instance.iterator();
-        iter=d.iterator();
-        while(iter.hasNext() && T){
-            c1=iter.next();
-            c2=nditer.next();
-            T=T&(c1.number()==c2.number() && c1.suit()==c2.suit());
+        Deck.DeckIterator nditer = instance.iterator();
+        iter = d.iterator();
+        while (iter.hasNext() && T){
+            c1 = iter.next();
+            c2 = nditer.next();
+            T = T & (c1.number() == c2.number() && c1.suit() == c2.suit());
         }
         assert(!T);
     }
@@ -91,20 +91,22 @@ public class DeckTest {
     @Test
     public void testIterator() {
         System.out.println("iterator");
-        Deck.DeckIterator titer=d.iterator();
-        Card c1,c2;
-        iter=d.iterator();
-        c1=iter.next();
-        c2=titer.next();
-        while(iter.hasNext() || titer.hasNext()){
-            if (!(c1.number()==c2.number() && c1.suit()==c2.suit())){
+        Deck.DeckIterator titer = d.iterator();
+        Card c1, c2;
+        iter = d.iterator();
+        c1 = iter.next();
+        c2 = titer.next();
+        while (iter.hasNext() || titer.hasNext()){
+            if (!(c1.number() == c2.number() &&
+            	  c1.suit() == c2.suit())){
                 fail("The card iterators dont iterate properly");
             }
-            else if(!(iter.hasNext()==titer.hasNext() && iter.cardsLeft()==titer.cardsLeft())){
+            else if (!(iter.hasNext() == titer.hasNext() &&
+            		   iter.cardsLeft() == titer.cardsLeft())){
                 fail("The card iterator doesn't calculate the amount of card left and/or if they have another card left correctly");
             }
-            c1=iter.next();
-            c2=titer.next();
+            c1 = iter.next();
+            c2 = titer.next();
         }
     }
 

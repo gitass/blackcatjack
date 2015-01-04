@@ -1,7 +1,7 @@
 package blackjack.model;
 
 public class BlackjackRound {
-    private int _score;
+    //private int _score;
     private Deck.DeckIterator _deckIterator;
     private Hand _dealerHand;
     private Hand _playerHand;

@@ -12,7 +12,6 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -93,8 +92,8 @@ public class BlackjackRoundTest {
         iter = testDeck.iterator();
         BlackjackRound testRound = new BlackjackRound(iter);
         assert (testRound.stand());
-        assert(testRound.isWon());
-        assert(testRound.score()==17);
+        assert (testRound.isWon());
+        assert (testRound.score() == 17);
         //player draws a blackjack
         cards = new ArrayList<>(Arrays.asList(
                 new Card(5, Suit.CLUBS),
@@ -109,8 +108,8 @@ public class BlackjackRoundTest {
         iter = testDeck.iterator();
         testRound = new BlackjackRound(iter);
         assert (testRound.stand());
-        assert(testRound.isWon());
-        assert(testRound.score()==21);
+        assert (testRound.isWon());
+        assert (testRound.score() == 21);
         //dealer manages to win. also tests the soft 16 mechanic
         cards = new ArrayList<>(Arrays.asList(
                 new Card(5, Suit.CLUBS),
@@ -125,8 +124,8 @@ public class BlackjackRoundTest {
         iter = testDeck.iterator();
         testRound = new BlackjackRound(iter);
         assert (!testRound.stand());
-        assert(testRound.dealerHand().value()==21);
-        assert(!testRound.isWon());
-        assert(testRound.score()==-14);
+        assert (testRound.dealerHand().value()==21);
+        assert (!testRound.isWon());
+        assert (testRound.score() == -14);
     }
 }

@@ -2,7 +2,6 @@ package blackjack.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 // Ad-hoc testing.
 public class TestStuff {
@@ -33,10 +32,12 @@ public class TestStuff {
         }
 
         */
+        
+        /*
         for (Card cc : d) {
-            //System.out.println(cc);
+            System.out.println(cc);
         }
-
+        */
         //Card c3 = new Card(13, null);
         //System.out.println(c3);
         

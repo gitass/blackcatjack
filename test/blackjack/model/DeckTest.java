@@ -98,11 +98,11 @@ public class DeckTest {
         c2 = titer.next();
         while (iter.hasNext() || titer.hasNext()){
             if (!(c1.number() == c2.number() &&
-            	  c1.suit() == c2.suit())){
+                c1.suit() == c2.suit())){
                 fail("The card iterators dont iterate properly");
             }
             else if (!(iter.hasNext() == titer.hasNext() &&
-            		   iter.cardsLeft() == titer.cardsLeft())){
+                       iter.cardsLeft() == titer.cardsLeft())){
                 fail("The card iterator doesn't calculate the amount of card left and/or if they have another card left correctly");
             }
             c1 = iter.next();

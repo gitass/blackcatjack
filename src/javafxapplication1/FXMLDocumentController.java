@@ -168,15 +168,15 @@ public class FXMLDocumentController implements Initializable {
      * Surprised?
      */
     private void meowButtonAction (ActionEvent event) {
-    	try {
-    		Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
-    		if (meowSound != null) {
-    			MediaPlayer mp = new MediaPlayer(meowSound);
-    			mp.play();
-    		}
-    	} catch(Exception ex){
-    		ex.printStackTrace();
-    	}
+        try {
+            Media meowSound = new Media(getClass().getResource("Meow.mp3").toString());
+            if (meowSound != null) {
+                MediaPlayer mp = new MediaPlayer(meowSound);
+                mp.play();
+            }
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
     /**
      * The action performed when the "Hit" button is pressed

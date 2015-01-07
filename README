@@ -1,0 +1,12 @@
+
+Blackcatjack
+============
+
+Some cat pictures with a blackjack game somewhere in there.
+
+Requirements:
+  Java 8 (jdk 1.8)
+  javafx (included in the jdk)
+  junit 4.*
+
+developed on netbeans (exact version 8.0.2)
